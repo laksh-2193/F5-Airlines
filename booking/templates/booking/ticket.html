@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>Ticket view</title>
+
+
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
+
+   <!-- BASE CSS -->
+   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   <link href="{% static 'css/style.css' %}" rel="stylesheet">
+   <link href="{% static 'css/vendors.css' %}" rel="stylesheet">
+
+   <!-- YOUR CUSTOM CSS -->
+   <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+	<style>
+    .invoice-title h2, .invoice-title h3 {
+        display: inline-block;
+    }
+    
+    .table > tbody > tr > .no-line {
+        border-top: none;
+    }
+    
+    .table > thead > tr > .no-line {
+        border-bottom: none;
+    }
+    
+    .table > tbody > tr > .thick-line {
+        border-top: 2px solid;
+    }
+    </style>
+        
+    
+        
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+        <div class="col-12">
+    		<div class="invoice-title add_top_30">
+    			<h2>F5 Airlines</h2><h3 class="float-right">PNR : #{{pnr}}</h3>
+    		</div>
+    		<hr>
+    		<div class="row">
+    			<div class="col-6">
+    				<address>
+    				<strong>Contact Details</strong><br>
+    					{{contact}}<br>
+    					<br>
+						<b>Booking ID - </b>{{booking}}
+    					
+    					
+    				</address>
+    			</div>
+    			<div class="col-6 text-right">
+    				<address>
+        			<strong>Itenery Details</strong><br>
+    					{{origin}}-{{destination}} <br>
+						{{flightno}}<br>
+						Date of Itenery - <u>{{flightdate}}</u><br>
+						
+    				</address>
+    			</div>
+    		</div>
+    		<div class="row">
+    			<div class="col-6">
+
+    			</div>
+    			<div class="col-6 text-right">
+    				<address>
+    					
+    				</address>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-lg-12">
+    		<div class="add_top_15">
+    			<h3><strong>Passenger Details</strong></h3>
+    				<div class="table-responsive">
+    					<table class="table table-condensed">
+    						<thead>
+                                <tr>
+        							<td><strong>Booking ID</strong></td>
+        							<td class="text-center"><strong>Full name</strong></td>
+        							<td class="text-center"><strong>Date of Birth</strong></td>
+        							<td class="text-right"><strong>Baggage Allowed</strong></td>
+                                </tr>
+    						</thead>
+    						<tbody>
+                                {% for n in passengers %}
+    							<tr>
+    								<td>{{n.bookingID}}</td>
+    								<td class="text-center">{{n.name}}</td>
+    								<td class="text-center">{{n.dob}}</td>
+    								<td class="text-right">20 kgs</td>
+    							</tr>
+                                {% endfor %}
+ 
+                               
+    						
+    						
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Total Paid</strong></td>
+    								<td class="no-line text-right">INR {{paidamt}} /-</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+
+
+  </body>
+</html>

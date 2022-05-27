@@ -1,0 +1,122 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+    <main>
+        <div class="hero_in cart_section">
+            <div class="wrapper">
+                <div class="container">
+                    <div class="bs-wizard clearfix">
+                        <div class="bs-wizard-step disabled">
+                            <div class="text-center bs-wizard-stepnum">Book Tickets</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+    
+                        <div class="bs-wizard-step active">
+                            <div class="text-center bs-wizard-stepnum">Payment</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+    
+                        <div class="bs-wizard-step disabled">
+                            <div class="text-center bs-wizard-stepnum">Finish!</div>
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <a href="#0" class="bs-wizard-dot"></a>
+                        </div>
+                    </div>
+                    <!-- End bs-wizard -->
+                </div>
+            </div>
+        </div>
+        <!--/hero_in-->
+
+        
+           
+        <input type="hidden" custom="Hidden Element" name="hidden">
+        <div class="bg_color_1">
+            <div class="container margin_60_35">
+     
+                    <!-- /col -->
+                    
+                    <aside class="col-lg-12" id="sidebar">
+                        <div class="box_detail">
+                            <div id="total_cart">
+                                Total <span class="float-right">INR {{amount}}</span>
+                            </div>
+                            <ul class="cart_details">
+                                <li>Conveyance Charges <span>INR 349/person</span></li>
+                                <li>CGST <span>5%</span></li>
+                                <li>GST <span>8.2%</span></li>
+                                <li>Service Charges <span>300/-</span></li>
+                                <li>Coupon <span>{{coupon}}</span></li>
+                            </ul>
+                            <button class="btn_1 full-width purchase" id="rzp-button1" name="payment" type="submit">Make Payment</button>
+                           
+    
+    
+                       
+                       <div class="text-center"><small>Prices are subject to change based on your prefrences</small></div>
+                        </div>
+                    </aside>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    {% if user.is_authenticated %}
+    <script>
+
+        var options = {
+            "key": "rzp_test_WEXoLQRsQcTbCC", // Enter the Key ID generated from the Dashboard
+            "name": "F5 Airlines",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": "{{orderid}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response){
+                alert("Payment Sucess")
+                window.location="/success"
+            },
+            "prefill": {
+                "name": "{{user.first_name}}",
+                "email": "{{user.email}}",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response){
+                var message = "Payment Failed - "+ response.error.code + response.error.description
+                alert(message)
+        });
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+        </script>
+        <!-- /bg_color_1 -->
+    
+    
+    
+    {% endif %}
+    
+    </main>
+
+    {% endblock %}

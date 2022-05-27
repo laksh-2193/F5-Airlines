@@ -1,0 +1,260 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+<main>
+    <section class="hero_single version_2">
+        <div class="wrapper">
+            <div class="container">
+                <h3>Book unique experiences</h3>
+                <p>with Fantastic Five top service based airline</p>
+                <form action="flightdetails">
+                    <div class="row no-gutters custom-search-input-2">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input class="form-control" list="places" placeholder="Origin" name="origin" id="origin" required>
+                                
+                                <datalist id="places">
+                                    {% for n in placesdata %}
+                                    <option value="{{n.acronym}} ({{n.placename}})"></option>
+                                   
+                                    {% endfor %}
+                                </datalist>
+                                <i class="icon_pin_alt"></i>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input class="form-control" list="places" placeholder="Destination" name="destination" id="destination" required>
+                                <i class="icon_pin_alt"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input min="{{mindate}}" class="form-control inputdate" type="date" placeholder="Depart" name="depart" id="depart" required>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input class="form-control" type="number" placeholder="No. of passengers" name="passen" id="passen" required>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" class="btn_search" value="Search">
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- /hero_single -->
+
+    <div class="container container-custom margin_80_0">
+        <div class="main_title_2">
+            <span><em></em></span>
+            <h2>Offers</h2>
+            <p>Budget friendly rides</p>
+        </div>
+        <div id="reccomended" class="owl-carousel owl-theme">
+            {% for n in offersdata %}
+            <div class="item">
+                <div class="box_grid">
+
+                    <div class="wrapper">
+                        <h3><a href="tour-detail.html">{{n.title}}</a></h3>
+                        <p>{{n.desc}}</p>
+                        <span class="price">Max <strong>INR {{n.maxdis}}</strong> off</span>
+                    </div>
+                    <ul>
+                        <li><i class="icon_clock_alt"></i> Use Code - </li>
+                        <li><div class="score"><strong>{{n.code}}</strong></div></li>
+                    </ul>
+                </div>
+                
+                
+            </div>
+            {% endfor %}
+            
+            
+
+
+
+
+        </div>
+        <!-- /carousel -->
+        <hr class="large">
+    </div>
+    <!-- /container -->
+    
+    <div class="container container-custom margin_30_95">
+        <section class="add_bottom_45">
+            <div class="main_title_3">
+                <span><em></em></span>
+                <h2>Popular Hotels and Accommodations</h2>
+                <p>Book your safe stay</p>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="hotel-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>8.9</strong></div>
+                            <img src="img/hotel_1.jpg" class="img-fluid" alt="">
+                            <div class="info">
+                                <div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i></div>
+                                <h3>Mariott Hotel</h3>
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="hotel-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>7.9</strong></div>
+                            <img src="img/hotel_2.jpg" class="img-fluid" alt="">
+                            <div class="info">
+                                <div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i></div>
+                                <h3>Concorde Hotel </h3>
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="hotel-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>7.0</strong></div>
+                            <img src="img/hotel_3.jpg" class="img-fluid" alt="">
+                            <div class="info">
+                                <div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i></div>
+                                <h3>Louvre Hotel</h3>
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="hotel-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>8.9</strong></div>
+                            <img src="img/hotel_4.jpg" class="img-fluid" alt="">
+                            <div class="info">
+                                <div class="cat_star"><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i><i class="icon_star"></i></div>
+                                <h3>Park Yatt Hotel</h3>
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /row -->
+                </section>
+        <!-- /section -->
+        
+        <section class="add_bottom_45">
+            <div class="main_title_3">
+                <span><em></em></span>
+                <h2>Popular Attractions</h2>
+                <p>You wont resist visiting these destination</p>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="restaurant-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>8.5</strong></div>
+                            <img src="img/restaurant_1.jpg" class="img-fluid" alt="">
+                            <div class="info">
+                                <h3>India Gate</h3>
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="restaurant-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>7.9</strong></div>
+                            <img src="img/restaurant_2.jpg" class="img-fluid" alt="">
+                            <div class="info">
+                                <h3>Hawa Mahal</h3>
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="restaurant-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>7.5</strong></div>
+                            <img src="img/restaurant_3.jpg" class="img-fluid" alt="">
+                            <div class="info">
+                                <h3>Kerala</h3>
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <a href="restaurant-detail.html" class="grid_item">
+                        <figure>
+                            <div class="score"><strong>9.0</strong></div>
+                            <img src="img/restaurant_4.jpg" class="img-fluid" alt="">
+                            <div class="info">
+                                <h3>Shimla</h3>
+                            </div>
+                        </figure>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /row -->
+                </section>
+        <!-- /section -->
+
+        <div class="banner mb-0">
+            <div class="wrapper d-flex align-items-center opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.3)">
+                <div>
+                    <small>Adventure</small>
+                    <h3>Your Perfect<br>Advenure Experience</h3>
+                    <p>Activities and accommodations</p>
+                    <a href="adventure.html" class="btn_1">Read more</a>
+                </div>
+            </div>
+            <!-- /wrapper -->
+        </div>
+        <!-- /banner -->
+
+    </div>
+    <!-- /container -->
+
+
+    <!-- /bg_color_1 -->
+
+    <div class="call_section">
+        <div class="container clearfix">
+            <div class="col-lg-5 col-md-6 float-right wow" data-wow-offset="250">
+                <div class="block-reveal">
+                    <div class="block-vertical"></div>
+                    <div class="box_1">
+                        <h3>Enjoy a GREAT travel with us</h3>
+                        <p>"Life is Short.
+                            Call in sick and book that
+                            Last-minute Flight"
+                            <p>
+                            I am not afraid of FLYING,
+                            I am afraid of NOT FLYING.
+                            </p>
+                        </p>
+                        <a href="#" class="btn_1 rounded">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/call_section-->
+</main>
+
+{% endblock %}
