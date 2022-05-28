@@ -17,19 +17,21 @@
             <!--/aside -->
             {% if userpnrs %}
                 {% else %}
-                <div class="row">
+                <center>
+                    <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_vezxxffq.json" background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+               <br> <h5>Oops! You didn't give us chance to serve you. Try booking your next ticket with us :) </h5>
+                
+               </center>
+               {% endif %}
+            <div class="row">
                     
-                   <center>
-                        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_vezxxffq.json" background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
-                   <br> <h5>Oops! You didn't give us chance to serve you. Try booking your next ticket with us </h5>
-                    
-                   </center>
+                {% for n in userpnrs %}
             <div class="col-lg-9" id="faq">
                 
                     
-                <div>
-                {% endif %}
-                {% for n in userpnrs %}
+                
+                
+               
                 <div role="tablist" class="add_bottom_45 accordion_2" id="payment">
                     <div class="card">
                         <div class="card-header" role="tab">
@@ -66,8 +68,8 @@
                     </div>
                     
                 </div>
-                {% endfor %}
-
+               
+            </div> {% endfor %}
             </div>
             <!-- /col -->
         </div>
