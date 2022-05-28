@@ -9,6 +9,7 @@ from matplotlib import container
 from matplotlib.style import use
 from requests import request
 from django.urls import reverse_lazy
+from urllib3 import HTTPResponse
 from .models import Offers, Passenger, UserDetails, Places, Flightroutes, Flights, Ticket, Passenger
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
@@ -22,6 +23,9 @@ from django.views.decorators.csrf import csrf_exempt
 import razorpay
 from django.shortcuts import redirect
 from datetime import date
+from django.conf import settings
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -38,11 +42,35 @@ def index(request):
         'placesdata': placesData,
         'mindate':tDate+""
     }
+    #sendEmail("subject","message","lakshaykumar2193@gmail.com")
     print("--------------->",data['mindate'])
 
     return render(request=request, template_name="booking/index.html", context=data)
 
 user=""
+
+def addflights(request):
+    routes = Flightroutes.objects.values()
+    data={}
+    data['routes'] = routes
+    print(routes)
+    if(request.method == "POST"):
+        fno = request.POST.get('flightno')
+        route = request.POST.get('route')
+        dtime = request.POST.get('dtime')
+        atime = request.POST.get('atime')
+        basefare = request.POST.get('basefare')
+        try:
+            routeAdded = Flightroutes.objects.only('routeno').get(routeno=route)
+            flightdets = Flights(flightno=fno,routeno=routeAdded,departure=dtime,arrival=atime,basefare=basefare)
+            flightdets.save()
+            data['alert'] = '<div class="alert alert-success" ><strong>Wowww!</strong><br> Data Added</button></div>'
+        except Exception as e:
+            data['alert'] = '<div class="alert alert-danger"><strong>Nope!</strong><br> Some error occured - '+ str(e) +'</button></div>'
+
+
+
+    return render(request=request,template_name="booking/addflights.html",context=data)
 
 def login(request):
     username = request.POST.get('email')
@@ -93,13 +121,16 @@ def registeruser(request):
                 auth_login(request, user)
                 request.session['username'] = str(email)
                 print("USERRRRR EXISTS")
+                message = "Hello "+name+"\n Yoy have successfully registered on F5 Airlines. Please verify yourself from the link given. \nLink - localhost:8000/verifyuser?email="+email+". \n Thankyou\nTeam\nF5 Airlines"
+                subject = "Verification Email | F5 Airlines"
+                sendEmail(subject,message,str(email))
                 return render(request=request, template_name="booking/index.html")
 
             except Exception as e:
-                print(e)
-                data['alert'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Oops!</strong><br>There was an error.<br> Seems another user exists with given email and contactno<br>Also ' + messageshown + '</button></div>'
+                print("&*"*15,e)
+                data['alert'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Oops!</strong><br>Someone already registered with this email ID and Contact No</button></div>'
         else:
-            data['alert'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Oops!</strong><br>There was an error.<br> Seems another user exists with given email and contactno<br><br>Also ' + \
+            data['alert'] = '<div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Oops!</strong><br>There was an error.<br> Seems another user exists with given email and contactno<br><br>Also ' + \
                 'Make sure your password matches and have more than 8 characters' + '</button></div>'
 
     return render(request=request, template_name="booking/register.html", context=data)
@@ -440,6 +471,24 @@ def ticket(request):
     data['paidamt'] = ticket[0]['paidamt']
     return render(request=request, template_name="booking/ticket.html",context=data)
 
+
+def verifyuser(request):
+    result = "Error while verifying user"
+    try:
+        email = request.GET['email']
+        usr = UserDetails.objects.get(emailid=email)
+        usr.verified = "yes"
+        usr.save()
+        result = "Wooho! User Verified"
+    except Exception as e:
+        result="Some Error Occured = "+str(e)
+
+    return HttpResponse(result)
+
+def sendEmail(subject,message,receiversemail):
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [receiversemail,]
+    send_mail(subject,message,email_from,recipient_list)
 
 def PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangeView

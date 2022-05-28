@@ -40,8 +40,8 @@ class Flightroutes(models.Model):
 class Flights(models.Model):
     flightno = models.CharField(max_length=10, unique=True)
     routeno = models.ForeignKey(Flightroutes,on_delete=models.CASCADE,related_name='routen')
-    departure = models.TimeField(unique=True)
-    arrival = models.TimeField(unique=True)
+    departure = models.TimeField()
+    arrival = models.TimeField()
     basefare = models.IntegerField()
 
 class Ticket(models.Model):

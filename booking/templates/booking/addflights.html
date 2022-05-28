@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>F5 Airlines</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  
+  <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6"><h2>Add Flights</h2><br>
+        <form action="#" method="POST"> {% csrf_token %}
+            {{alert|safe}}
+            <div class="form-group">
+              <label>Flight Number</label>
+              <input type="text" class="form-control" name="flightno" required>
+            </div>
+            <div class="form-group">
+                <label>Route</label>
+                <select class="form-control" name="route">
+                {% for n in routes %}
+                <option value="{{n.routeno}}">{{n.routeno}} - ({{n.origin_id}} to {{n.destination_id}})</option>
+                {% endfor %}
+            </select>
+              </div>
+              <div class="form-group">
+                <label>Departure Time</label>
+                <input type="time" class="form-control" name="dtime" required>
+              </div>
+              <div class="form-group">
+                <label>Arrival Time</label>
+                <input type="time" class="form-control" name="atime" required>
+              </div>
+              <div class="form-group">
+                <label>Base Fare</label>
+                <input type="number" min="1000" class="form-control" name="basefare" required>
+              </div>
+           
+           
+            <button type="submit" class="btn btn-primary">Add Flight</button>
+          </form>
+      </div>
+      <div class="col-md-3"></div>
+  </div>
+ 
+</div>
+
+</body>
+</html>
