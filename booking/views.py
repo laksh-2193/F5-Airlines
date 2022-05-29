@@ -86,7 +86,8 @@ def login(request):
         request.session['username'] = str(username)
         print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU",user)
         print("------------------------>", request.session['username'])
-        return render(request=request, template_name="booking/index.html")
+
+        return redirect("/index")
     else:
         print("NOT EXISTANT - ", username, " -- ", password)
 
@@ -124,7 +125,7 @@ def registeruser(request):
                 message = "Hello "+name+"\n Yoy have successfully registered on F5 Airlines. Please verify yourself from the link given. \nLink - http://localhost:8000/verifyuser?email="+email+". \n Thankyou\nTeam\nF5 Airlines"
                 subject = "Verification Email | F5 Airlines"
                 #sendEmail(subject,message,str(email))
-                return render(request=request, template_name="booking/index.html")
+                return redirect("/index")
 
             except Exception as e:
                 print("&*"*15,e)
@@ -178,7 +179,7 @@ def signin(request):
 
 def logout(request):
     django_logout(request)
-    return render(request=request, template_name="booking/index.html")
+    return redirect("/index")
 
 
 def signup(request):
