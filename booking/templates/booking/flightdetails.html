@@ -79,17 +79,17 @@
                     <div>
                     {% endif %}
                    
-
+                <small>*Prices mentioned are per person</small>
                 {% for n in availableflights %}
                 <div class="box_list p-3">
                     <div class="row">
                         <div class="col-md-2 plcname">
-                            <h4><b>{{n.flightno}}</b></h4>
+                            <h5><b>{{n.flightno}}</b></h5>
                             
                         </div>
                         
                         <div class="col plcname ">
-                            <h6><b>{{n.departure}}</b></h6><br>
+                            <h6 class="text-primary"><b>{{n.departure}}</b></h6><br>
                             <p>{{from}}</p>
     
                         </div>
@@ -97,11 +97,11 @@
                             --->
                         </div>
                         <div class="col plcname">
-                            <h6><b>{{n.arrival}}</b></h6><br>
+                            <h6 class="text-primary"><b>{{n.arrival}}</b></h6><br>
                             <p>{{destination}}</p>
                         </div>
                         
-                        <div class="col plcname"><h5>{{n.basefare}}</h5>/person</div>
+                        <div class="col plcname"><h5>₹ {{n.basefare}}/-</h5></div>
                         <div class="col plcname">
                             <form action="passengerdetails?flightdet={{n.flightno}}&date={{date}}&passen={{passen}}" method="post"> 
                                 {% csrf_token %}

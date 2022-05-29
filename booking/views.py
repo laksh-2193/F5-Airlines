@@ -208,6 +208,7 @@ def flightdetails(request):
     except Exception as e:
         print("Error - ", e)
         availableflights = {}
+    
 
 
     data = {
@@ -221,7 +222,10 @@ def flightdetails(request):
     if(request.method == "POST"):
         minprice = int(request.POST.get('minprice'))
         maxprice = int(request.POST.get('maxprice'))
+        sortby = request.POST.get('sortby')
+        sortby = '-'+str(sortby)
         shownflights = availableflights
+        shownflights = shownflights.order_by(sortby)
         filteredflights = []
         for i in shownflights:
             if(i['basefare']>=minprice and i['basefare']<=maxprice):
@@ -250,6 +254,8 @@ def passengerdetails(request):
     passen = [x for x in range(int(passen))]
     couponcode = ""
     data = {}
+    couponCodes = Offers.objects.values()
+    
     try:
         print("------>", itenery, " ############# ", route)
         data = {
@@ -258,7 +264,8 @@ def passengerdetails(request):
             'dest': route['destination_id'],
             'date': date,
             'passen': passen,
-            'amount': round(amount)
+            'amount': round(amount),
+            'cCodes':couponCodes
         }
         print("-----------------------------)", data)
     except:

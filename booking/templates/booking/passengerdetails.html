@@ -113,8 +113,12 @@
                             <div class="apply-coupon">
                                 
                                 <div class="form-group">
-                                    <input type="text" name="coupon" value="" placeholder="Your Coupon Code" class="form-control">
+                                    <input list="coupons" name="coupon" placeholder="Your Coupon Code" class="form-control">
                                 </div>
+                                <datalist id="coupons">
+                                    {% for n in cCodes %}
+                                    <option value="{{n.code}}">{{n.title}} - {{n.maxdis}}/- off</option>{% endfor %}
+                                </datalist>
                                
                             
                             
