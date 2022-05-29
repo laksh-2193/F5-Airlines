@@ -123,14 +123,14 @@ def registeruser(request):
                 print("USERRRRR EXISTS")
                 message = "Hello "+name+"\n Yoy have successfully registered on F5 Airlines. Please verify yourself from the link given. \nLink - http://localhost:8000/verifyuser?email="+email+". \n Thankyou\nTeam\nF5 Airlines"
                 subject = "Verification Email | F5 Airlines"
-                sendEmail(subject,message,str(email))
+                #sendEmail(subject,message,str(email))
                 return render(request=request, template_name="booking/index.html")
 
             except Exception as e:
                 print("&*"*15,e)
                 data['alert'] = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>Oops!</strong><br>Someone already registered with this email ID and Contact No</button></div>'
         else:
-            data['alert'] = '<div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Oops!</strong><br>There was an error.<br> Seems another user exists with given email and contactno<br><br>Also ' + \
+            data['alert'] = '<div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Oops!</strong><br>' + \
                 'Make sure your password matches and have more than 8 characters' + '</button></div>'
 
     return render(request=request, template_name="booking/register.html", context=data)
