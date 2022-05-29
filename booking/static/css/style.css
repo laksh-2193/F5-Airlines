@@ -2310,7 +2310,7 @@ video {
   height: 620px;
 }
 .hero_single.version_2:before {
-  background: url(../img/home_section_1.jpg) center center no-repeat;
+  background: url('https://media1.giphy.com/media/j19xjNwl3wMp5ix1PO/giphy.gif') center center no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
