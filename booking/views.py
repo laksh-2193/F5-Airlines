@@ -186,6 +186,7 @@ def signup(request):
 
 
 
+
 def flightdetails(request):
     origin = request.GET['origin']
     destination = request.GET['destination']
