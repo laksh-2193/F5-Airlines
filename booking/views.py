@@ -121,7 +121,7 @@ def registeruser(request):
                 auth_login(request, user)
                 request.session['username'] = str(email)
                 print("USERRRRR EXISTS")
-                message = "Hello "+name+"\n Yoy have successfully registered on F5 Airlines. Please verify yourself from the link given. \nLink - localhost:8000/verifyuser?email="+email+". \n Thankyou\nTeam\nF5 Airlines"
+                message = "Hello "+name+"\n Yoy have successfully registered on F5 Airlines. Please verify yourself from the link given. \nLink - http://localhost:8000/verifyuser?email="+email+". \n Thankyou\nTeam\nF5 Airlines"
                 subject = "Verification Email | F5 Airlines"
                 sendEmail(subject,message,str(email))
                 return render(request=request, template_name="booking/index.html")
@@ -488,6 +488,7 @@ def verifyuser(request):
 def sendEmail(subject,message,receiversemail):
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [receiversemail,]
+    print(recipient_list)
     send_mail(subject,message,email_from,recipient_list)
 
 def PasswordsChangeView(PasswordChangeView):
