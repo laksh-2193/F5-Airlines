@@ -235,11 +235,6 @@ def flightdetails(request):
         
         data['availableflights'] = filteredflights
         
-        
-        
-        
-        
-
     return render(request=request, template_name="booking/flightdetails.html", context=data)
 
 
@@ -465,7 +460,9 @@ def ticket(request):
     data['flightno'] = ticket[0]['flightno']
     data['flightdate'] = ticket[0]['flightdate']
     data['booking'] = ticket[0]['booking']
+    print("tktt---"*5,ticket)
     route = (Flights.objects.filter(flightno=ticket[0]['flightno']).values())[0]['routeno_id']
+    print("-->"*10,route)
     origin = (Flightroutes.objects.filter(routeno=route).values())[0]['origin_id']
     destination = (Flightroutes.objects.filter(routeno=route).values())[0]['destination_id']
     data['origin'] = origin
